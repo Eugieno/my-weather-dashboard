@@ -10,6 +10,11 @@ var fifthForecastCont = $('#forecast-5')
 // Create an event handler function that does the following; 
 $('#search-button').on('click', function(event) {
     event.preventDefault()
+    // $("#buttons-view").empty();
+    $('#today').empty()
+    $('.forecast-box').text('')
+    
+
     // sends APi request to Geocoding API
     // Get city name fromm form text 
     // construct an API url with city name as a variable
@@ -45,55 +50,76 @@ $('#search-button').on('click', function(event) {
         }).then(function(result) {
             console.log(result)
 
-            // Today's whether data
+            $('#today').removeClass('hide')
+            $('#forecast').removeClass('hide')
+            $('#forecastHeading').removeClass('hide')
+            // Today's weather data
             var arrayOfData = result.list  //array of useful data
             var liveDtTxt = moment().format('YYYY-MM-DD') + " 12:00:00"
+
+            var baseDtTxt = arrayOfData[0].dt_txt
+            console.log("base = "+baseDtTxt)
+
+            
+            var date = baseDtTxt.split(" ")[0]
+            var time = baseDtTxt.split(" ")[1]
+            var myMomentObject = moment(date).add(1,'d').format('YYYY-MM-DD') + ` ${time}`
+           
+
+           
+            formatTime = moment(time, 'HH:mm:ss').add(5,'d').subtract(3, 'h').toString()
+
+            var lastTime = formatTime.split(' ')[4]
+            
+            console.log(lastTime)
+            console.log(myMomentObject)
+            console.log(time);
+
             var nameOfcity = result.city.name
             console.log(arrayOfData)
             console.log(moment().add(3, 'd').format('YYYY-MM-DD'))
-            for (item of arrayOfData) {
-                if (item.dt_txt == liveDtTxt) {
-                    console.log("YES")
+
+            for (var i = 0; i < arrayOfData.length; i++) {
+                if (arrayOfData[i].dt_txt == moment(date).add(0,'d').format('YYYY-MM-DD') + ` ${time}`) {
+                    var item = arrayOfData[0]
                     displayTodayData(item, nameOfcity,todayWhetherContEl,0)
                 }
 
-                if (item.dt_txt == moment().add(1, 'd').format('YYYY-MM-DD') + " 12:00:00" ) {
+                if (arrayOfData[i].dt_txt == moment(date).add(1,'d').format('YYYY-MM-DD') + ` ${time}`) {
                     console.log("This is the 1st day forecast")
-                    displayTodayData(item, nameOfcity,firstForecastCont,1)
+                    var item = arrayOfData[i]
+                    displaythisData(item, nameOfcity,firstForecastCont,1)
                     
                 }
 
-                if (item.dt_txt == moment().add(2, 'd').format('YYYY-MM-DD') + " 12:00:00" ) {
+                if (arrayOfData[i].dt_txt == moment(date).add(2,'d').format('YYYY-MM-DD') + ` ${time}`) {
                     console.log("This is the 2nd day forecast")
-                    displayTodayData(item, nameOfcity,secForecastCont,2)
+                    var item = arrayOfData[i]
+                    displaythisData(item, nameOfcity,secForecastCont,2)
+                    
                 }
 
-                if (item.dt_txt == moment().add(3, 'd').format('YYYY-MM-DD') + " 12:00:00" ) {
+                if (arrayOfData[i].dt_txt == moment(date).add(3,'d').format('YYYY-MM-DD') + ` ${time}`) {
                     console.log("This is the 3rd day forecast")
-                    displayTodayData(item, nameOfcity,trdForecastCont,3)
+                    var item = arrayOfData[i]
+                    displaythisData(item, nameOfcity,trdForecastCont,3)
+                    
                 }
 
-                if (item.dt_txt == moment().add(4, 'd').format('YYYY-MM-DD') + " 12:00:00" ) {
+                if (arrayOfData[i].dt_txt == moment(date).add(4,'d').format('YYYY-MM-DD') + ` ${time}`) {
                     console.log("This is the 4th day forecast")
-                    displayTodayData(item, nameOfcity,fthForecastCont,4)
+                    var item = arrayOfData[i]
+                    displaythisData(item, nameOfcity,fthForecastCont,4)
+                    
                 }
 
-                if (item.dt_txt == moment().add(5, 'd').format('YYYY-MM-DD') + " 12:00:00" ) {
+                if (arrayOfData[i].dt_txt == moment(date).add(5,'d').format('YYYY-MM-DD') + ` ${lastTime}`) {
                     console.log("This is the 5th day forecast")
-                    displayTodayData(item, nameOfcity,fifthForecastCont,5)
+                    var item = arrayOfData[i]
+                    displaythisData(item, nameOfcity,fifthForecastCont,5)
+                    
                 }
-
-                
-                
             }
-
-            // Forecast data 
-            // create an h1 element and set txt to city name + icon + date
-        
-            // create new p element and set text to temp 
-            // create new p element and set text to winf 
-            // create new p element and set text to humidity
-            // appnd all elemet unto section with id = today
         })
 
 
@@ -194,6 +220,30 @@ $('#search-button').on('click', function(event) {
 
   }
 
+  function displaythisData(arrayItem, cityName, placementId,n) {
+    var todayDataWrap = $('<div class = "forecast-box">')
+    todayDataWrap.html(`
+    <h5> ${moment().add(n,'d').format('l')}</h5>
+    <p> Temp: ${arrayItem.main.temp}</p>
+    <p> Wind: ${arrayItem.wind.speed}
+    <p> Humidity: ${arrayItem.main.humidity}
+    `)
+    // $("#today").append(todayDataWrap)
+    placementId.append(todayDataWrap)
+  }
 
 
+  var a = moment([2007, 0, 29]);
+  var b = moment([2007, 0, 28]);
+  console.log(a.diff(b, 'days'))// 1
+  console.log(b.diff(a, 'days'))
+
+
+  function getMoment(someDtTxt) {
+    someDtTxt.split(" ")[0]
+    // date = myArr[0]
+    // date.add(num, 'd') + myArr[1]
+  }
+ 
+  
         // add event listener to the search button of the form element
