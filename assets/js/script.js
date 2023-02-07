@@ -120,6 +120,10 @@ $('#search-button').on('click', function(event) {
                     
                 }
             }
+
+            // Append dynamically new button unto the history div with a new classname
+            renderSearchedQuery()
+            sendToLocal()
         })
 
 
@@ -130,14 +134,56 @@ $('#search-button').on('click', function(event) {
     
 
    
-    // Append dynamically new button unto the history div with a new classname
     // send the appended info to local storage
 })
 
-    
+// Write a function that renders search buttons containing seached query unto the search history 
+
+function renderSearchedQuery() {
+    // grab searched text
+    var searchText = $('#search-input').val().trim()
+    // create a new button element, add text = searched text
+    var btnEl = $('<button>').addClass('searchQuery').text(searchText)
+    // append the button unto the search element with id = history
+    $('#history').append(btnEl)
+}
             
 
 // Write a function to send to local storage 
+function sendToLocal() {
+    var  localSto = {
+                current: todayWhetherContEl.html().trim(),
+                first: firstForecastCont.html().trim(),
+                second: secForecastCont.html().trim(),
+                third: trdForecastCont.html().trim(),
+                fouth: fthForecastCont.html().trim(),
+                fifth: fifthForecastCont.html().trim()
+            }
+    accessKey = $('#search-input').val().trim()
+    localStorage.setItem(accessKey, JSON.stringify(localSto));
+}
+    // grab the content of each rendered on-screen data
+    // create user objects from submission
+    // set submission to local storage with a key
+
+
+
+// write a function to get submission from local
+$('#history').on('click', '.searchQuery', function() {
+    $('#today').empty()
+    $('.forecast-box').text('')
+
+    var fromLocal = JSON.parse(localStorage.getItem($(this).text()))
+    console.log("I'm working!")
+    console.log($(this).text())
+    todayWhetherContEl.append(fromLocal.current)
+    firstForecastCont.append(fromLocal.first)
+    secForecastCont.append(fromLocal.second)
+    trdForecastCont.append(fromLocal.third)
+    fthForecastCont.append(fromLocal.fouth)
+    fifthForecastCont.append(fromLocal.fifth)
+})
+// render submission to page on click on the button in the search history
 // function sendToLocal() {
 //     // create user object from on-screen data rendered, remember to trim
 //     var  localSto = {
@@ -193,19 +239,7 @@ $('#search-button').on('click', function(event) {
 
 // write a function to display weather data 
 
-// function displayMovieData({ Title, Year, Plot }) {
-  
-//     // let { Title, Year, Plot } = response;  // obj destructuring 
 
-//   // Template literal below (String Interpolation)
-//     let indMovieDiv = $('<div>');
-//     indMovieDiv.html(`
-//     <h1> ${Title} </h1>
-//     <h2> ${Year}</h2>
-//     <h3> ${Plot}</h3>
-//     `)
-//     $('.movie-info').append(indMovieDiv);
-//   }
 
   function displayTodayData(arrayItem, cityName, placementId,n) {
     var todayDataWrap = $('<div>')
@@ -228,22 +262,5 @@ $('#search-button').on('click', function(event) {
     <p> Wind: ${arrayItem.wind.speed}
     <p> Humidity: ${arrayItem.main.humidity}
     `)
-    // $("#today").append(todayDataWrap)
     placementId.append(todayDataWrap)
   }
-
-
-  var a = moment([2007, 0, 29]);
-  var b = moment([2007, 0, 28]);
-  console.log(a.diff(b, 'days'))// 1
-  console.log(b.diff(a, 'days'))
-
-
-  function getMoment(someDtTxt) {
-    someDtTxt.split(" ")[0]
-    // date = myArr[0]
-    // date.add(num, 'd') + myArr[1]
-  }
- 
-  
-        // add event listener to the search button of the form element
