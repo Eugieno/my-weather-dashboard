@@ -10,19 +10,17 @@ var fifthForecastCont = $('#forecast-5')
 // Create an event handler function that does the following; 
 $('#search-button').on('click', function(event) {
     event.preventDefault()
-    // $("#buttons-view").empty();
+    
     $('#today').empty()
     $('.forecast-box').text('')
     
-
-    // sends APi request to Geocoding API
-    // Get city name fromm form text 
-    // construct an API url with city name as a variable
+    
     var city = $('#search-input').val().trim()
+    // validating user input 
     if (city == "") {
         alert("Sorry, text box cannot be empty!")
     }
-
+    // constructing a GET request to Geocoding API
     apiKey = "6ba0b25bc07a2f8bbcb23b35a7bf0c21"
     queryURL1 = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=5&appid=" + apiKey
 
@@ -36,11 +34,7 @@ $('#search-button').on('click', function(event) {
         var cityLatitude = response[0].lat
 
         console.log(cityLatitude, cityLongitude)   //////
-         // API ajax call to geocoding API
-        // Grab long and lat data from Geocoding response object
-            // store long and lat in variables
-        // construct ajax call to open whether API using long and latitude data for the corresponding city
-            // Append the required info on to the respective section of the front end page
+        // constructing a GET request to openweather API
         var unit = "metric"
         var queryURL2 = "http://api.openweathermap.org/data/2.5/forecast?lat=" + cityLatitude + "&lon="+ cityLongitude + "&units="+ unit + "&appid=6ba0b25bc07a2f8bbcb23b35a7bf0c21"
 
@@ -183,68 +177,11 @@ $('#history').on('click', '.searchQuery', function() {
     fthForecastCont.append(fromLocal.fouth)
     fifthForecastCont.append(fromLocal.fifth)
 })
-// render submission to page on click on the button in the search history
-// function sendToLocal() {
-//     // create user object from on-screen data rendered, remember to trim
-//     var  localSto = {
-//         current: {
-//             city: city,
-//             date: date1,
-//             temp: temp1,
-//             humidity: humidity1
-//         },
-//         first: {
-//             date: date1,
-//             icon: icon1,
-//             temp: temp1,
-//             humidity: humidity1
-//         },
-//         second: {
-//             date: date1,
-//             icon: icon1,
-//             temp: temp1,
-//             humidity: humidity1
-//         },
-//         third: {
-//             date: date1,
-//             icon: icon1,
-//             temp: temp1,
-//             humidity: humidity1
-//         },
-//         fouth: {
-//             date: date1,
-//             icon: icon1,
-//             temp: temp1,
-//             humidity: humidity1
-//         },
-//         fifth: {
-//             date: date1,
-//             icon: icon1,
-//             temp: temp1,
-//             humidity: humidity1
-//         },
-//     }
-//     // send to localstorage using sendItem
-//     localStorage.setItem("key", JSON.stringify(localSto))
-// }
-    
-
-// write a function that handles the click event on the searched item in the history section
-    // Make use of event delegation to id = history and new classname dynamically generated from main event above
-// function renderHistory() {
-//     // clear current screen 
-//     // get item and JSON.parse 
-//     // print on screen 
-// }
-
-// write a function to display weather data 
-
-
 
   function displayTodayData(arrayItem, cityName, placementId,n) {
     var todayDataWrap = $('<div>')
     todayDataWrap.html(`
-    <h2> ${cityName} ${moment().add(n,'d').format('l')}  <img src= "http://openweathermap.org/img/wn/${arrayItem.weather[0].icon}@2x.png" style="height: 10px width: 10px"></h2>
+    <h2> ${cityName} ${moment().add(n,'d').format('l')}  <img src= "http://openweathermap.org/img/wn/${arrayItem.weather[0].icon}@2x.png"></h2>
     <p> Temp: ${arrayItem.main.temp}</p>
     <p> Wind: ${arrayItem.wind.speed}
     <p> Humidity: ${arrayItem.main.humidity}
