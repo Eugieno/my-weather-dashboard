@@ -8,9 +8,9 @@ My weather dashboard is a web based app that allows user to access current weath
 ![App Front page](./assets/images/app-front-page.png)
 
 ## Usage Instruction/Features
-Follow the [App URL](), and you will land on the front page of the app pictured above. To search for the weather information for a city, type the name of the city into the text field and click the search button. On click, the app renders the current weather outlook in the box above and five day forecast below as seen in the picture below. 
+Follow the [App URL](https://eugieno.github.io/my-weather-dashboard/), and you will land on the front page of the app pictured above. To search for the weather information for a city, type the name of the city into the text field and click the search button. On click, the app renders the current weather outlook in the box above and five day forecast below as seen in the picture below. 
 ![App screen-shot during a search](./assets/images/app-in-action.png)
-The app provides a search history beneath the input form, that allows previously searched information to be re-rendered if desired. 
+The app provides a search history beneath the input form on the left hand side of the screen, that allows previously searched information to be re-rendered if desired. 
 
 ## Reflection 
 This project was completed at the end of my 8th week at the University of Birmingham bootcamp in FE web dev. 
