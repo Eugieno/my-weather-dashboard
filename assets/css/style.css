@@ -28,5 +28,9 @@
 .forecast-box {
     background-color: #13293D;
     color:white;
-    padding-left: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+#no-data-msg{
+    text-align: center;
 }

@@ -49,7 +49,7 @@ $('#search-button').on('click', function(event) {
             $('#forecastHeading').removeClass('hide')
             // Today's weather data
             var arrayOfData = result.list  //array of useful data
-            var liveDtTxt = moment().format('YYYY-MM-DD') + " 12:00:00"
+            
 
             var baseDtTxt = arrayOfData[0].dt_txt
             console.log("base = "+baseDtTxt)
@@ -57,18 +57,13 @@ $('#search-button').on('click', function(event) {
             
             var date = baseDtTxt.split(" ")[0]
             var time = baseDtTxt.split(" ")[1]
-            var myMomentObject = moment(date).add(1,'d').format('YYYY-MM-DD') + ` ${time}`
            
-
-           
-            formatTime = moment(time, 'HH:mm:ss').add(5,'d').subtract(3, 'h').toString()
+            var formatTime = moment(time, 'HH:mm:ss').add(5,'d').subtract(3, 'h').toString()
 
             var lastTime = formatTime.split(' ')[4]
             
             console.log(lastTime)
-            console.log(myMomentObject)
-            console.log(time);
-
+            // console.log(time);
             var nameOfcity = result.city.name
             console.log(arrayOfData)
             console.log(moment().add(3, 'd').format('YYYY-MM-DD'))
@@ -112,27 +107,23 @@ $('#search-button').on('click', function(event) {
                     var item = arrayOfData[i]
                     displaythisData(item, nameOfcity,fifthForecastCont,5)
                     
+                // } else {
+                //     // var todayDataWrap = $('<div class = "forecast-box">')
+                //     // todayDataWrap.html(`<p id ="no-data-msg">Weather data will be available shortly</p>`)
+                //     // fifthForecastCont.append(todayDataWrap)
+                //     fifthForecastCont.html(`<p id ="no-data-msg">Weather data will be available shortly</p>`)
+                    
                 }
             }
 
-            // Append dynamically new button unto the history div with a new classname
+            // Append dynamically new button unto the history div and send to client local storage
             renderSearchedQuery()
             sendToLocal()
         })
-
-
-
-
     })
-   
-    
-
-   
-    // send the appended info to local storage
 })
 
-// Write a function that renders search buttons containing seached query unto the search history 
-
+// A function that renders search buttons containing seached query unto the search history 
 function renderSearchedQuery() {
     // grab searched text
     var searchText = $('#search-input').val().trim()
@@ -143,7 +134,7 @@ function renderSearchedQuery() {
 }
             
 
-// Write a function to send to local storage 
+// A function to send searched data to local storage 
 function sendToLocal() {
     var  localSto = {
                 current: todayWhetherContEl.html().trim(),
@@ -156,16 +147,13 @@ function sendToLocal() {
     accessKey = $('#search-input').val().trim()
     localStorage.setItem(accessKey, JSON.stringify(localSto));
 }
-    // grab the content of each rendered on-screen data
-    // create user objects from submission
-    // set submission to local storage with a key
 
-
-
-// write a function to get submission from local
+// Code structure that allows searched weather info to be retrieved from
+// local storage for re-rendering by clicking the specifc button in search history
 $('#history').on('click', '.searchQuery', function() {
     $('#today').empty()
     $('.forecast-box').text('')
+    
 
     var fromLocal = JSON.parse(localStorage.getItem($(this).text()))
     console.log("I'm working!")
@@ -178,6 +166,7 @@ $('#history').on('click', '.searchQuery', function() {
     fifthForecastCont.append(fromLocal.fifth)
 })
 
+// A function that grabs and display the current day weather data
   function displayTodayData(arrayItem, cityName, placementId,n) {
     var todayDataWrap = $('<div>')
     todayDataWrap.html(`
@@ -186,11 +175,11 @@ $('#history').on('click', '.searchQuery', function() {
     <p> Wind: ${arrayItem.wind.speed}
     <p> Humidity: ${arrayItem.main.humidity}
     `)
-    // $("#today").append(todayDataWrap)
     placementId.append(todayDataWrap)
 
   }
 
+// A function that grabs and display 5 day forecast weather data
   function displaythisData(arrayItem, cityName, placementId,n) {
     var todayDataWrap = $('<div class = "forecast-box">')
     todayDataWrap.html(`
