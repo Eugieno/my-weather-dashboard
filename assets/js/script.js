@@ -244,7 +244,7 @@ $('#history').on('click', '.searchQuery', function() {
   function displayTodayData(arrayItem, cityName, placementId,n) {
     var todayDataWrap = $('<div>')
     todayDataWrap.html(`
-    <h2> ${cityName} ${moment().add(n,'d').format('l')}</h2>
+    <h2> ${cityName} ${moment().add(n,'d').format('l')}  <img src= "http://openweathermap.org/img/wn/${arrayItem.weather[0].icon}@2x.png" style="height: 10px width: 10px"></h2>
     <p> Temp: ${arrayItem.main.temp}</p>
     <p> Wind: ${arrayItem.wind.speed}
     <p> Humidity: ${arrayItem.main.humidity}
@@ -258,6 +258,7 @@ $('#history').on('click', '.searchQuery', function() {
     var todayDataWrap = $('<div class = "forecast-box">')
     todayDataWrap.html(`
     <h5> ${moment().add(n,'d').format('l')}</h5>
+    <img src= "http://openweathermap.org/img/wn/${arrayItem.weather[0].icon}@2x.png">
     <p> Temp: ${arrayItem.main.temp}</p>
     <p> Wind: ${arrayItem.wind.speed}
     <p> Humidity: ${arrayItem.main.humidity}

@@ -8,8 +8,9 @@
 }
 
 #today {
-    border: solid 1px;
+    border: solid 2px;
     padding: 0.8rem;
+
 }
 
 .hide {
@@ -22,4 +23,10 @@
 
 #search-input {
     width: 100%;
+}
+
+.forecast-box {
+    background-color: #13293D;
+    color:white;
+    padding-left: 0.5rem;
 }
