@@ -22,7 +22,7 @@ $('#search-button').on('click', function(event) {
     }
     // constructing a GET request to Geocoding API
     apiKey = "6ba0b25bc07a2f8bbcb23b35a7bf0c21"
-    queryURL1 = "http://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=5&appid=" + apiKey
+    queryURL1 = "https://api.openweathermap.org/geo/1.0/direct?q=" + city +"&limit=5&appid=" + apiKey
 
     $.ajax({
         url: queryURL1,
@@ -36,7 +36,7 @@ $('#search-button').on('click', function(event) {
         console.log(cityLatitude, cityLongitude)   //////
         // constructing a GET request to openweather API
         var unit = "metric"
-        var queryURL2 = "http://api.openweathermap.org/data/2.5/forecast?lat=" + cityLatitude + "&lon="+ cityLongitude + "&units="+ unit + "&appid=6ba0b25bc07a2f8bbcb23b35a7bf0c21"
+        var queryURL2 = "https://api.openweathermap.org/data/2.5/forecast?lat=" + cityLatitude + "&lon="+ cityLongitude + "&units="+ unit + "&appid=6ba0b25bc07a2f8bbcb23b35a7bf0c21"
 
         $.ajax({
             url:queryURL2,
